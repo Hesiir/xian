@@ -1,0 +1,31 @@
+# OS or Editor folders
+*.esproj
+*.komodoproject
+.komodotools
+*.sublime-*
+._*
+.cache
+.DS_Store
+.vscode
+.idea
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+
+# npm
+node_modules
+npm-debug.log
+
+# project files
+*.test.js
+bin/
+helper/
+src/
+typings/
+.babelrc
+.gitignore
+tsconfig.json
+typings.json
+.__DLLs/

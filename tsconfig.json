@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "jsx": "react",
+        "noImplicitAny": false,
+        "removeComments": false,
+        "sourceMap": false,
+        "rootDir": "./src",
+        "outDir": "./lib",
+        "allowJs": false
+    },
+    "exclude": [
+        "node_modules",
+        "bin",
+        "helper",
+        "lib"
+    ]
+}
