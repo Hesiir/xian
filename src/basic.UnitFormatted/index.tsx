@@ -8,14 +8,31 @@
 //                                                                               //
 //  @Author Orlo Wang                                                            //
 //  @Email  ow.cc@outlook.com                                                    //
-//  @providesComponent Switch                                                     //
+//  @providesComponent UnitFormatted                                                     //
 ///////////////////////////////////////////////////////////////////////////////////
 
 import * as React from 'react';
+import { PropTypes } from 'react';
 
-const Switch:React.StatelessComponent<{}> = (props) => <div></div>;
+const unit = {
+  usd: '$',
+  rmb: '￥',
+  eur: '€',
+  gbp: '£'
+};
+const UnitFormatted:React.StatelessComponent<{}> = (props) => <section>
+  {props.position === 0 && <span>{unit[props.unitType]}</span>}
+  {props.children}
+  {props.position === 1 && <span>{unit[props.unitType]}</span>}
+</section>;
 
-Switch.propTypes = {};
-Switch.defaultProps = {};
+UnitFormatted.propTypes = {
+  unitType: PropTypes.string,
+  position: PropTypes.number
+};
+UnitFormatted.defaultProps = {
+  unitType: null,
+  position: 0
+};
 
-export default Switch
+export default UnitFormatted

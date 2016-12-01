@@ -25,18 +25,18 @@ export const wpConf = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel?passPerPreset,presets[]=stage-0,presets[]=es2015,presets[]=react,plugins[]=transform-runtime,plugins[]=react-hot-loader/babel'
+        loader: 'babel-loader?passPerPreset,presets[]=stage-0,presets[]=es2015,presets[]=react,plugins[]=transform-runtime,plugins[]=react-hot-loader/babel'
       },
       {
         test: /\.json$/,
         exclude: /node_modules/,
-        loader: 'json'
+        loader: 'json-loader'
       },
       {
         test: /\.styl$/,
         loaders: [
-          'style',
-          `css?{
+          'style-loader',
+          `css-loader?{
               "sourceMap":false,
               "modules":true,
               "importLoaders": 1,
@@ -44,7 +44,7 @@ export const wpConf = {
               "minimize":false
           }`,
           'postcss',
-          'stylus'
+          'stylus-loader'
         ]
       }
     ]

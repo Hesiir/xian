@@ -8,14 +8,22 @@
 //                                                                               //
 //  @Author Orlo Wang                                                            //
 //  @Email  ow.cc@outlook.com                                                    //
-//  @providesComponent Switch                                                     //
+//  @providesComponent UnitFormatted                                                     //
 ///////////////////////////////////////////////////////////////////////////////////
 
+
 import * as React from 'react';
+import UnitFormatted from './index';
+import {
+  Component,
+  Props
+} from 'react';
 
-const Switch:React.StatelessComponent<{}> = (props) => <div></div>;
-
-Switch.propTypes = {};
-Switch.defaultProps = {};
-
-export default Switch
+interface UnitFormattedTestProps extends Props<UnitFormattedTest>{}
+export default class UnitFormattedTest extends Component<UnitFormattedTestProps, any>{
+  render(){
+    return <div>
+      <UnitFormatted unitType='rmb'>34556.34</UnitFormatted>
+    </div>;
+  }
+}

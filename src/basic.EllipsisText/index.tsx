@@ -8,14 +8,30 @@
 //                                                                               //
 //  @Author Orlo Wang                                                            //
 //  @Email  ow.cc@outlook.com                                                    //
-//  @providesComponent Switch                                                     //
+//  @providesComponent EllipsisText                                                     //
 ///////////////////////////////////////////////////////////////////////////////////
 
 import * as React from 'react';
+import { PropTypes } from 'react';
 
-const Switch:React.StatelessComponent<{}> = (props) => <div></div>;
+const EllipsisText:React.StatelessComponent<{}> = (props) => <div style={{
+  overflow: 'hidden',
+  height: `${props.column * props.height}rem`,
+  lineHeight: `${props.height}rem`
+}} className={props.className}>
+  <textarea name="" id="" cols="30" rows="10" defaultValue={props.children}></textarea>
+</div>;
 
-Switch.propTypes = {};
-Switch.defaultProps = {};
+EllipsisText.propTypes = {
+  column: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
+  initials: PropTypes.bool.isRequired,
+  className: PropTypes.string
+};
+EllipsisText.defaultProps = {
+  column: 1,
+  height: 1.33333,
+  initials: false
+};
 
-export default Switch
+export default EllipsisText;

@@ -27,7 +27,7 @@ interface ScrollerTestProps extends Props<ScrollerTest>{}
 export default class ScrollerTest extends Component<ScrollerTestProps, any>{
   render(){
     return <div style={scroller_style}>
-      <Scroller>Turn Off the Lights是一个轻量而实用的插件，它为更舒适的观看体验而设计。它可以用于所有已知的视频网站，如YouTube、Vimeo、Dailymotion、Hulu、Metacafe、优酷等。不仅如此，该扩展程序还与Google Chrome、Apple Safari、Mozilla Firefox、Opera、Microsoft Edge、傲游以及Yandex这些浏览器兼容。 
+      <Scroller mouseWheel={true}>Turn Off the Lights是一个轻量而实用的插件，它为更舒适的观看体验而设计。它可以用于所有已知的视频网站，如YouTube、Vimeo、Dailymotion、Hulu、Metacafe、优酷等。不仅如此，该扩展程序还与Google Chrome、Apple Safari、Mozilla Firefox、Opera、Microsoft Edge、傲游以及Yandex这些浏览器兼容。 
 此浏览器插件的几个比较有特色的功能：
 +轻击黑色部分即可开灯+支持众多视频网站，例如：YouTube、HTML5视频等及更多... 
 +自定义你的YouTube体验： 自动高清：自动将视频调整至高清画质。用户可以选择分辨率高配> 8K > 5K> 4K > 1080p > 720p > 480p > 360p > 240p > 144p >默认自动宽屏：自动在最宽模式播放视频...及更多... 

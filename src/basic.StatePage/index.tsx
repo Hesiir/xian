@@ -12,6 +12,9 @@
 ///////////////////////////////////////////////////////////////////////////////////
 
 import * as React from 'react';
+import {
+  TransitionMotion
+} from 'react-motion';
 
 export const Error:React.StatelessComponent<{}> = (props) => <div>
   Error ...

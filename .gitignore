@@ -17,6 +17,7 @@ Thumbs.db
 # npm
 node_modules
 npm-debug.log
+yarn-error.log
 
 # project files
 *.test.js

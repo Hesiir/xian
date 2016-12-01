@@ -18,7 +18,6 @@ import {
   PropTypes
 } from 'react';
 import * as ReactDOM from 'react-dom';
-import ReactIScroll from 'react-iscroll';
 import { infiniteOptionsType } from './types';
 
 const iscroll = require('iscroll/build/iscroll-infinite');
@@ -27,38 +26,38 @@ const inner_style = {
   marginTop: 0,
   marginBottom: 0
 };
-interface LongListScrollerStatus {}
+interface LongListScrollerStatus {
+  list?: Object,
+  count?: Number,
+  loading?: Boolean,
+}
 interface LongListScrollerProps extends Props<LongListScroller>{
   options?: infiniteOptionsType,
   infiniteLoad: Function,
-  infiniteRender: Function
+  infiniteRender: Function,
+  loadCount?: Number,
+  initLoadPage?: Number,
 }
 
 export default class LongListScroller extends Component<LongListScrollerProps,LongListScrollerStatus>{
   constructor(props){
     super(props);
-    this.state = {}
+    this.state = {
+      list: [],
+      count: this.props.loadCount || 13,
+      loading: false
+    }
   }
   componentDidMount(){
-    
+    this.loadData(this.props.initLoadPage || 1, this.state.count)
   }
+  loadData = (page, count) => {
+    this.setState({
+      loading:true
+    })
+  }
+  renderItem = (item, index) => <li key={index}>{item}</li>
   render(){
-    return (<ReactIScroll iScroll={iscroll} 
-    options={{
-      mouseWheel: true,
-      infiniteElements: '#iStroll li',
-      cacheSize: 1000,
-      dataset: (start, count) => {
-        console.log(this)
-      },
-      dataFiller: (el, data) => {
-        console.log(`el:${el}`)
-      }
-    }}
-    >
-      <ul id="iStroll" style={inner_style}>
-        <li>{this.props.children}</li>
-      </ul>
-    </ReactIScroll>)
+    return (<div/>)
   }
 }
