@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=development babel-node ./helper/http.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": {
     "type": "git",
@@ -55,7 +57,8 @@
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-middleware": "^1.8.1",
     "webpack-dev-server": "^1.16.1",
-    "webpack-stream": "^3.2.0"
+    "webpack-stream": "^3.2.0",
+    "@kadira/storybook": "^2.21.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
