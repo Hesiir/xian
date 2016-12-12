@@ -1,17 +1,21 @@
 import React from 'react';
 import { storiesOf, action, linkTo } from '@kadira/storybook';
-import Button from './Button';
 import Welcome from './Welcome';
+import _ from 'lodash'
 
-storiesOf('Welcome', module)
-  .add('to Storybook', () => (
-    <Welcome showApp={linkTo('Button')}/>
-  ));
+let componentsTest = new Map();
+let components = require('../helper/component_list.json').components;
 
-storiesOf('Button', module)
-  .add('with text', () => (
-    <Button onClick={action('clicked')}>Hello Button</Button>
-  ))
-  .add('with some emoji', () => (
-    <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>
-  ));
+function self(self){
+  self();
+}
+
+components.map((component, index) => {
+  let cmps$index = require(`../lib/${component.type}.${component.component}/test`);
+  let father$index;
+  _.keys(cmps$index).forEach(cmp => {
+    let father = father$index || storiesOf(`${component.component}`, module);
+    console.log(father)
+    father.add(`${cmp}`, () => <cmp />);
+  })
+})

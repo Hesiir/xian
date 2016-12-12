@@ -8,30 +8,22 @@
 //                                                                               //
 //  @Author Orlo Wang                                                            //
 //  @Email  ow.cc@outlook.com                                                    //
-//  @providesComponent Banner                                                     //
+//  @providesComponent SimpleSelectList                                                     //
 ///////////////////////////////////////////////////////////////////////////////////
 
 
 import * as React from 'react';
-import Banner from './index';
+import SimpleSelectList from './index';
 import {
   Component,
   Props
 } from 'react';
 
-interface BannerNormalProps extends Props<BannerNormal>{}
-export class BannerNormal extends Component<BannerNormalProps, any>{
+interface SimpleSelectListNormalProps extends Props<SimpleSelectListNormal>{}
+export class SimpleSelectListNormal extends Component<SimpleSelectListNormalProps, any>{
   render(){
     return <div>
-      <Banner>this is normal banner.</Banner>
-    </div>;
-  }
-}
-
-export class BannerSlide extends Component<{}, any>{
-  render(){
-    return <div>
-      <Banner>this is slide banner.</Banner>
+      <SimpleSelectList></SimpleSelectList>
     </div>;
   }
 }

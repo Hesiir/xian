@@ -23,8 +23,8 @@ const scroller_style = {
   height: '200px'
 };
 
-interface ScrollerTestProps extends Props<ScrollerTest>{}
-export default class ScrollerTest extends Component<ScrollerTestProps, any>{
+interface ScrollerNormalProps extends Props<ScrollerNormal>{}
+export class ScrollerNormal extends Component<ScrollerNormalProps, any>{
   render(){
     return <div style={scroller_style}>
       <Scroller mouseWheel={true}>Turn Off the Lights是一个轻量而实用的插件，它为更舒适的观看体验而设计。它可以用于所有已知的视频网站，如YouTube、Vimeo、Dailymotion、Hulu、Metacafe、优酷等。不仅如此，该扩展程序还与Google Chrome、Apple Safari、Mozilla Firefox、Opera、Microsoft Edge、傲游以及Yandex这些浏览器兼容。 

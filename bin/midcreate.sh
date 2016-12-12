@@ -112,8 +112,8 @@ import {
   Props
 } from 'react';
 
-interface ${upper_component_name}TestProps extends Props<${upper_component_name}Test>{}
-export default class ${upper_component_name}Test extends Component<${upper_component_name}TestProps, any>{
+interface ${upper_component_name}NormalProps extends Props<${upper_component_name}Normal>{}
+export class ${upper_component_name}Normal extends Component<${upper_component_name}NormalProps, any>{
   render(){
     return <div>
       <${upper_component_name}></${upper_component_name}>
