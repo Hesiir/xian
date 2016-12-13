@@ -17,10 +17,10 @@ Hesiir Components is a collection of React(ReactNative) component with awesome U
 
 ## Docs & Help
 
- - [add a new component](#addComponent)
- - [use actions logger](#actionsLogger)
- - [use route](#toute)
- - [Keyboard Shortcuts](#keyboardShortcuts)  
+ - [add a new component](#add-a-new-component)
+ - [use actions logger](#use-actions-logger)
+ - [use route](#use-route)
+ - [keyboard shortcuts](#keyboard-shortcuts)  
 
 ### add a new component
 
