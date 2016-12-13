@@ -1,33 +1,60 @@
-## Hesiir Components [![Build Status](https://travis-ci.org/Hesiir/components.svg?branch=master)](https://travis-ci.org/Hesiir/components)
+# Hesiir Components [![Build Status](https://travis-ci.org/Hesiir/components.svg?branch=master)](https://travis-ci.org/Hesiir/components)
+---  
 
-## Example
+Hesiir Components is a collection of React(ReactNative) component with awesome UI dev-environment by **[React Storybook](https://github.com/storybooks/react-storybook)**  
 
-## License
+> React Storybook is a UI development environment for your React components. With it, you can visualize different states of your UI components and develop them interactively.  
 
-Copyright (c) 2016-present, Orlo Wang, (Jnfinty).
-All rights reserved.
+## Getting Started
 
-Redistribution and use in source and binary forms, with or without modification,
-are permitted provided that the following conditions are met:
+``` bash
+  yarn global add getstorybook typescript typings  
+  yarn  
+  typings install  
 
- * Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
+  yarn run start
+```
 
- * Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+## Docs & Help
 
- * Neither the name Orlo Wang(Jnfinty) nor the names of its contributors may be used to
-   endorse or promote products derived from this software without specific
-   prior written permission.
+ - [add a new component](#addComponent)
+ - [use actions logger](#actionsLogger)
+ - [use route](#toute)
+ - [Keyboard Shortcuts](#keyboardShortcuts)  
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+### add a new component
+
+``` bash
+  midcreate -c [conponent name] [--option]
+
+  Options:
+
+    -t,  componet type, valid fields is 'base', 'business'
+    -f,  stateless component
+    -b,  status component
+```
+
+### use actions logger
+
+Import the ```action``` function and use it to create actions handlers. When creating action handlers, provide a name to make it easier to identify
+``` javascript
+  import { action } from '@kadira/storybook'
+
+  const Banner = (props) => <div onClick={action('banner click', handle => handle)}>
+    {props.children}
+  </div>
+```
+
+### use route
+
+### Keyboard Shortcuts
+
+⌘ ⇧ P/  ⌃ ⇧ PToggle Search Box
+⌘ ⇧ J/  ⌃ ⇧ JToggle Action Logger position
+⌘ ⇧ F/  ⌃ ⇧ FToggle Fullscreen Mode
+⌘ ⇧ L/  ⌃ ⇧ LToggle Left Panel
+⌘ ⇧ D/  ⌃ ⇧ DToggle Down Panel
+⌘ ⇧ →/  ⌃ ⇧ →Next Story
+⌘ ⇧ ←/  ⌃ ⇧ ←Previous Story
+
+

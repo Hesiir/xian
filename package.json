@@ -4,9 +4,8 @@
   "description": "react/reactNative components",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development babel-node ./helper/http.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 6006",
+    "start": "start-storybook -p 6006",
+    "build:lib": "NODE_ENV=production node ../helper/build_lib.js",
     "build-storybook": "build-storybook"
   },
   "repository": {
