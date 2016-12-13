@@ -8,16 +8,37 @@
 //                                                                               //
 //  @Author Orlo Wang                                                            //
 //  @Email  ow.cc@outlook.com                                                    //
-//  @providesComponent Banner                                                     //
+//  @providesComponent Button                                                     //
 ///////////////////////////////////////////////////////////////////////////////////
 
+
 import * as React from 'react';
+import Button from './index';
+import {
+  Component,
+  Props
+} from 'react';
+import { action } from '@kadira/storybook';
+import { text, boolean, number } from '@kadira/storybook-addon-knobs';
 
-const Banner:React.StatelessComponent<{}> = (props) => <div>
-  this is Banner.right
-</div>;
+interface ButtonNormalProps extends Props<ButtonNormal>{
+  onClick?: Function
+}
+export class ButtonNormal extends Component<ButtonNormalProps, any>{
+  render(){
+    return <div>
+      <Button onClick={action('click', console.log('dd'))}>{text('Button Text', 'this is a button')}</Button>
+    </div>;
+  }
+}
 
-Banner.propTypes = {};
-Banner.defaultProps = {};
-
-export default Banner
+interface ButtonSelfProps extends Props<ButtonNormal>{
+  onClick?: Function
+}
+export class ButtonSelf extends Component<ButtonSelfProps, any>{
+  render(){
+    return <div onClick={() => this.props.onClick()}>
+      this is a action button
+    </div>;
+  }
+}

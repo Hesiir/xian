@@ -1,7 +1,17 @@
-import { configure } from '@kadira/storybook';
+import React from 'react';
+import { configure, setAddon } from '@kadira/storybook';
+import infoAddon from '@kadira/react-storybook-addon-info';
+import { setOptions } from '@kadira/storybook-addon-options';
 
-function loadStories() {
-  require('../stories')
-}
+setAddon(infoAddon);
+setOptions({
+  name: 'Hesiir-components',
+  url: 'https://github.com/Hesiir/components',
+  goFullScreen: false,
+  showLeftPanel: true,
+  showDownPanel: true,
+  showSearchBox: false,
+  downPanelInRight: true,
+});
 
-configure(loadStories, module);
+configure(() => require('../stories'), module);

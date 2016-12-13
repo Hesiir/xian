@@ -8,16 +8,24 @@
 //                                                                               //
 //  @Author Orlo Wang                                                            //
 //  @Email  ow.cc@outlook.com                                                    //
-//  @providesComponent Banner                                                     //
+//  @providesComponent Button                                                     //
 ///////////////////////////////////////////////////////////////////////////////////
 
 import * as React from 'react';
+import { PropTypes } from 'react';
 
-const Banner:React.StatelessComponent<{}> = (props) => <div>
-  this is Banner.right
-</div>;
+const Button:React.StatelessComponent<any> = ({ children, onClick }) => <div
+  onClick={onClick}
+  style={{
+    width: '80px',
+    height: '40px',
+    backgroundColor: 'red'
+  }}
+>{children}</div>;
 
-Banner.propTypes = {};
-Banner.defaultProps = {};
+Button.propTypes = {
+  onClick: PropTypes.func
+};
+Button.defaultProps = {};
 
-export default Banner
+export default Button

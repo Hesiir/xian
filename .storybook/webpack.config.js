@@ -13,6 +13,18 @@ module.exports = {
   module: {
     loaders: [
       // add your custom loaders.
+      {
+        test: /\.md$/,
+        exclude: /node_modules/,
+        loader: "raw"
+      }, {
+        test: /\.json$/,
+        exclude: /node_modules/,
+        loader: 'json'
+      }, {
+        test: /\.css$/,
+        loader: 'style!css'
+      }
     ],
   },
 };

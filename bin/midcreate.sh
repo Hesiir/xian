@@ -104,6 +104,7 @@ case $syntax_type in
 esac
 
 styl_tpl="${doc_block}\n.$upper_component_name{}"
+readme_tpl="## $upper_component_name component"
 test_tpl="${doc_block}\n
 import * as React from 'react';
 import ${upper_component_name} from './index';
@@ -134,6 +135,7 @@ then
   mkdir ./src/${type_name_prefix}.${upper_component_name}
   echo -e "$componet" > ./src/${type_name_prefix}.${upper_component_name}/index.tsx
   echo -e "$test_tpl" > ./src/${type_name_prefix}.${upper_component_name}/test.tsx
+  echo -e "$readme_tpl" > ./src/${type_name_prefix}.${upper_component_name}/README.md
   # echo -e "$styl_tpl" > ./src/${type_name_prefix}.${upper_component_name}/style.styl
 
   node ./helper/add_component.js $type_name_prefix $upper_component_name

@@ -6,6 +6,14 @@
   version "1.4.7"
   resolved "https://registry.yarnpkg.com/@kadira/react-split-pane/-/react-split-pane-1.4.7.tgz#6d753d4a9fe62fe82056e323a6bcef7f026972b5"
 
+"@kadira/react-storybook-addon-info@^3.3.0":
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/@kadira/react-storybook-addon-info/-/react-storybook-addon-info-3.3.0.tgz#dad3987c1603eed9b3e7718c5b26966098693b35"
+  dependencies:
+    babel-runtime "^6.5.0"
+    markdown-to-react-components "^0.2.1"
+    react-addons-create-fragment "^15.3.2"
+
 "@kadira/storybook-addon-actions@^1.0.2":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@kadira/storybook-addon-actions/-/storybook-addon-actions-1.1.1.tgz#5053485583fadea413710d6405454dc168a7efc7"
@@ -14,9 +22,31 @@
     json-stringify-safe "^5.0.1"
     react-inspector "^1.1.0"
 
+"@kadira/storybook-addon-knobs@^1.7.1":
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/@kadira/storybook-addon-knobs/-/storybook-addon-knobs-1.7.1.tgz#5c6278c2c67652408358a7ee49e789fd1396b831"
+  dependencies:
+    babel-runtime "^6.5.0"
+    deep-equal "^1.0.1"
+    insert-css "^1.0.0"
+    moment "^2.15.0"
+    react-color "^2.4.3"
+    react-datetime "^2.6.0"
+    react-textarea-autosize "^4.0.5"
+
 "@kadira/storybook-addon-links@^1.0.0":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@kadira/storybook-addon-links/-/storybook-addon-links-1.0.1.tgz#566136a8020b60f82f146ef37d93b0c86de969d8"
+
+"@kadira/storybook-addon-notes@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@kadira/storybook-addon-notes/-/storybook-addon-notes-1.0.1.tgz#8aed1f999b43efa092ed36b7711add3f04ce774c"
+  dependencies:
+    babel-runtime "^6.5.0"
+
+"@kadira/storybook-addon-options@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@kadira/storybook-addon-options/-/storybook-addon-options-1.0.1.tgz#ab51e474417d76d1cb8e39752c11a410acd7f23c"
 
 "@kadira/storybook-addons@^1.5.0":
   version "1.6.1"
@@ -239,6 +269,13 @@ argparse@^1.0.7:
   dependencies:
     sprintf-js "~1.0.2"
 
+argparse@~0.1.15:
+  version "0.1.16"
+  resolved "https://registry.yarnpkg.com/argparse/-/argparse-0.1.16.tgz#cfd01e0fbba3d6caed049fbd758d40f65196f57c"
+  dependencies:
+    underscore "~1.7.0"
+    underscore.string "~2.4.0"
+
 arr-diff@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/arr-diff/-/arr-diff-2.0.0.tgz#8f3b827f955a8bd669697e4a4256ac3ceae356cf"
@@ -357,6 +394,10 @@ async@~0.2.6:
 asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
+
+autolinker@~0.15.0:
+  version "0.15.3"
+  resolved "https://registry.yarnpkg.com/autolinker/-/autolinker-0.15.3.tgz#342417d8f2f3461b14cf09088d5edf8791dc9832"
 
 autoprefixer@^6.3.1, autoprefixer@^6.3.7, autoprefixer@^6.4.1:
   version "6.5.3"
@@ -1574,7 +1615,7 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.2.3, classnames@^2.2.5:
+classnames@^2.2.0, classnames@^2.2.3, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -1922,6 +1963,23 @@ css-loader@0.25.0:
     postcss-modules-values "^1.1.0"
     source-list-map "^0.1.4"
 
+css-loader@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-0.26.1.tgz#2ba7f20131b93597496b3e9bb500785a49cd29ea"
+  dependencies:
+    babel-code-frame "^6.11.0"
+    css-selector-tokenizer "^0.7.0"
+    cssnano ">=2.6.1 <4"
+    loader-utils "~0.2.2"
+    lodash.camelcase "^4.3.0"
+    object-assign "^4.0.1"
+    postcss "^5.0.6"
+    postcss-modules-extract-imports "^1.0.0"
+    postcss-modules-local-by-default "^1.0.1"
+    postcss-modules-scope "^1.0.0"
+    postcss-modules-values "^1.1.0"
+    source-list-map "^0.1.4"
+
 css-select@^1.1.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/css-select/-/css-select-1.2.0.tgz#2b3a110539c5355f1cd8d314623e870b121ec858"
@@ -1934,6 +1992,14 @@ css-select@^1.1.0:
 css-selector-tokenizer@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/css-selector-tokenizer/-/css-selector-tokenizer-0.6.0.tgz#6445f582c7930d241dcc5007a43d6fcb8f073152"
+  dependencies:
+    cssesc "^0.1.0"
+    fastparse "^1.1.1"
+    regexpu-core "^1.0.0"
+
+css-selector-tokenizer@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/css-selector-tokenizer/-/css-selector-tokenizer-0.7.0.tgz#e6988474ae8c953477bf5e7efecfceccd9cf4c86"
   dependencies:
     cssesc "^0.1.0"
     fastparse "^1.1.1"
@@ -2737,6 +2803,10 @@ getpass@^0.1.1:
   dependencies:
     assert-plus "^1.0.0"
 
+github-markdown-css@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/github-markdown-css/-/github-markdown-css-2.4.1.tgz#b4736d84eea8367a03b3248cf546dda3e8dc55e3"
+
 glob-base@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/glob-base/-/glob-base-0.3.0.tgz#dbb164f6221b1c0b1ccf82aea328b497df0ea3c4"
@@ -3029,7 +3099,7 @@ hawk@~3.1.3:
     hoek "2.x.x"
     sntp "1.x.x"
 
-he@1.1.x:
+he@1.1.x, he@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.0.tgz#29319d49beec13a9b1f3c4f9b2a6dde4859bb2a7"
 
@@ -3039,6 +3109,10 @@ header-case@^1.0.0:
   dependencies:
     no-case "^2.2.0"
     upper-case "^1.1.3"
+
+highlight.js@=9.6.0:
+  version "9.6.0"
+  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-9.6.0.tgz#0cf495fff5ac15f73a42c6d0b60fb314093cf006"
 
 history@^2.1.2:
   version "2.1.2"
@@ -3217,6 +3291,10 @@ inline-source-map@~0.3.0:
   resolved "https://registry.yarnpkg.com/inline-source-map/-/inline-source-map-0.3.1.tgz#a528b514e689fce90db3089e870d92f527acb5eb"
   dependencies:
     source-map "~0.3.0"
+
+insert-css@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/insert-css/-/insert-css-1.1.0.tgz#4a3f7a3e783877381bb8471a6452d1d27315db9e"
 
 insert-module-globals@~6.0.0:
   version "6.0.0"
@@ -3740,6 +3818,10 @@ lodash.camelcase@^3.0.1:
   dependencies:
     lodash._createcompounder "^3.0.0"
 
+lodash.camelcase@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/lodash.camelcase/-/lodash.camelcase-4.3.0.tgz#b28aa6288a2b9fc651035c7711f65ab6190331a6"
+
 lodash.clone@^4.3.2:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clone/-/lodash.clone-4.5.0.tgz#195870450f5a13192478df4bc3d23d2dea1907b6"
@@ -3885,7 +3967,7 @@ lodash.words@^3.0.0:
   dependencies:
     lodash._root "^3.0.0"
 
-lodash@4.x.x, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
+lodash@4.x.x, lodash@^4.0.1, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.16.2, lodash@^4.16.4, lodash@^4.17.2, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.6.1:
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 
@@ -3944,6 +4026,21 @@ map-obj@^1.0.0, map-obj@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-1.0.1.tgz#d933ceb9205d82bdcf4886f6742bdc2b4dea146d"
 
+markdown-to-react-components@^0.2.1:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/markdown-to-react-components/-/markdown-to-react-components-0.2.2.tgz#6ce830dd93f54a9df77eb3a355b32722c522e493"
+  dependencies:
+    he "^1.1.0"
+    marked "^0.3.3"
+
+marked@^0.3.3:
+  version "0.3.6"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.6.tgz#b2c6c618fccece4ef86c4fc6cb8a7cbf5aeda8d7"
+
+material-colors@^1.0.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/material-colors/-/material-colors-1.2.0.tgz#956f0c87660882333cff7b7557efb7b03592820e"
+
 math-expression-evaluator@^1.2.14:
   version "1.2.14"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.14.tgz#39511771ed9602405fba9affff17eb4d2a3843ab"
@@ -3983,6 +4080,10 @@ meow@^3.3.0:
 merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
+
+merge@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
 
 methods@~1.1.2:
   version "1.1.2"
@@ -4109,6 +4210,10 @@ module-deps@~2.0.0:
     resolve "~0.6.3"
     stream-combiner "~0.1.0"
     through2 "~0.4.1"
+
+moment@^2.15.0:
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
 
 morgan@^1.7.0:
   version "1.7.0"
@@ -5147,6 +5252,10 @@ range-parser@^1.0.3, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
+raw-loader@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/raw-loader/-/raw-loader-0.5.1.tgz#0c3d0beaed8a01c966d9787bf778281252a979aa"
+
 rc@~1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/rc/-/rc-1.1.6.tgz#43651b76b6ae53b5c802f1151fa3fc3b059969c9"
@@ -5155,6 +5264,26 @@ rc@~1.1.6:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~1.0.4"
+
+react-addons-create-fragment@^15.3.2:
+  version "15.4.1"
+  resolved "https://registry.yarnpkg.com/react-addons-create-fragment/-/react-addons-create-fragment-15.4.1.tgz#596fde66cf7f375b5dad3c36ff6efe19c0ac47e7"
+
+react-color@^2.4.3:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.10.0.tgz#5307bd299488d728d6825f94da8b2912b74d06c3"
+  dependencies:
+    lodash "^4.0.1"
+    material-colors "^1.0.0"
+    reactcss "^1.1.1"
+    tinycolor2 "^1.1.2"
+
+react-datetime@^2.6.0:
+  version "2.7.5"
+  resolved "https://registry.yarnpkg.com/react-datetime/-/react-datetime-2.7.5.tgz#f004fb2463684c6c918f7fa8431310a453441bea"
+  dependencies:
+    object-assign "^3.0.0"
+    react-onclickoutside "^4.1.0"
 
 react-deep-force-update@^2.0.1:
   version "2.0.1"
@@ -5241,11 +5370,23 @@ react-motion@^0.4.5:
     performance-now "^0.2.0"
     raf "^3.1.0"
 
+react-onclickoutside@^4.1.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/react-onclickoutside/-/react-onclickoutside-4.9.0.tgz#2908c3136e244102bea5e5437a838a528d5d2995"
+  dependencies:
+    object-assign "^4.0.1"
+
 react-proxy@^3.0.0-alpha.0:
   version "3.0.0-alpha.1"
   resolved "https://registry.yarnpkg.com/react-proxy/-/react-proxy-3.0.0-alpha.1.tgz#4400426bcfa80caa6724c7755695315209fa4b07"
   dependencies:
     lodash "^4.6.1"
+
+react-remarkable@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-remarkable/-/react-remarkable-1.1.1.tgz#37908ac95894576d0d39187bd289bc2cbb5ac6de"
+  dependencies:
+    remarkable "^1.4.1"
 
 react-router@^2.8.1:
   version "2.8.1"
@@ -5270,6 +5411,10 @@ react-stubber@^1.0.0:
   dependencies:
     babel-runtime "^6.5.0"
 
+react-textarea-autosize@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-4.0.5.tgz#55379f6a6fa575fc87d1b8de2756e57e3b6c995d"
+
 react-truncate@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/react-truncate/-/react-truncate-2.0.2.tgz#17d224cbb6b51875e772314dfd3f85651e705286"
@@ -5280,6 +5425,15 @@ react@^15.3.1:
   dependencies:
     fbjs "^0.8.4"
     loose-envify "^1.1.0"
+    object-assign "^4.1.0"
+
+reactcss@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/reactcss/-/reactcss-1.1.1.tgz#9f16fc737fae08daa23bf8a3429bd9f54e162b52"
+  dependencies:
+    classnames "^2.2.0"
+    lodash "^4.0.1"
+    merge "^1.2.0"
     object-assign "^4.1.0"
 
 read-pkg-up@^1.0.1:
@@ -5443,6 +5597,13 @@ regjsparser@^0.1.4:
 relateurl@0.2.x:
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/relateurl/-/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
+
+remarkable@^1.4.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/remarkable/-/remarkable-1.7.1.tgz#aaca4972100b66a642a63a1021ca4bac1be3bff6"
+  dependencies:
+    argparse "~0.1.15"
+    autolinker "~0.15.0"
 
 renderkid@~2.0.0:
   version "2.0.0"
@@ -5818,6 +5979,14 @@ stackframe@^0.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.3.1.tgz#faf51b9eb74aaef3b3acf4ad5f61abf24cb7b93e"
 
+storybook-readme@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/storybook-readme/-/storybook-readme-1.2.0.tgz#d63b6a9ec83d3995a2e24c3fbae2e42e37a3c3c9"
+  dependencies:
+    github-markdown-css "^2.4.1"
+    highlight.js "=9.6.0"
+    react-remarkable "^1.1.1"
+
 stream-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stream-browserify/-/stream-browserify-1.0.0.tgz#bf9b4abfb42b274d751479e44e0ff2656b6f1193"
@@ -6090,6 +6259,10 @@ timers-browserify@^1.0.1, timers-browserify@~1.0.1:
   dependencies:
     process "~0.5.1"
 
+tinycolor2@^1.1.2:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.4.1.tgz#f4fad333447bc0b07d4dc8e9209d8f39a8ac77e8"
+
 title-case@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/title-case/-/title-case-2.1.0.tgz#c68ccb4232079ded64f94b91b4941ade91391979"
@@ -6188,9 +6361,17 @@ unc-path-regex@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
 
+underscore.string@~2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/underscore.string/-/underscore.string-2.4.0.tgz#8cdd8fbac4e2d2ea1e7e2e8097c42f442280f85b"
+
 underscore@~1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.6.0.tgz#8b38b10cacdef63337b8b24e4ff86d45aea529a8"
+
+underscore@~1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.7.0.tgz#6bbaf0877500d36be34ecaa584e0db9fef035209"
 
 uniq@^1.0.1:
   version "1.0.1"
