@@ -14,4 +14,4 @@ setOptions({
   downPanelInRight: true,
 });
 
-configure(() => require('../stories'), module);
+configure(() => require('./stories'), module);
