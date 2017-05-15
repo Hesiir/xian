@@ -24,3 +24,4 @@ yarn-error.log
 .__DLLs
 typings
 lib
+scripts/component_list.json
