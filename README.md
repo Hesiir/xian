@@ -1,18 +1,14 @@
-# Hesiir Components [![Build Status](https://travis-ci.org/Hesiir/components.svg?branch=master)](https://travis-ci.org/Hesiir/components)
+# Xian [![Build Status](https://travis-ci.org/Hesiir/xian.svg?branch=master)](https://travis-ci.org/Hesiir/xian)
 ---  
 
-Hesiir Components is a collection of React(ReactNative) component with awesome UI dev-environment by **[React Storybook](https://github.com/storybooks/react-storybook)**  
+Xian is a collection of React(ReactNative) component with awesome UI dev-environment by **[React Storybook](https://github.com/storybooks/react-storybook)**  
 
 > React Storybook is a UI development environment for your React components. With it, you can visualize different states of your UI components and develop them interactively.  
 
 ## Getting Started
 
 ``` bash
-  yarn global add getstorybook typescript typings  
-  yarn  
-  typings install  
-
-  yarn run start
+  yarn && yarn start
 ```
 
 ## Docs & Help
@@ -25,13 +21,7 @@ Hesiir Components is a collection of React(ReactNative) component with awesome U
 ### add a new component
 
 ``` bash
-  midcreate -c [conponent name] [--option]
-
-  Options:
-
-    -t,  componet type, valid fields is 'base', 'business'
-    -f,  stateless component
-    -b,  status component
+  yarn create [(@type/name)]
 ```
 
 ### use actions logger
@@ -49,12 +39,10 @@ Import the ```action``` function and use it to create actions handlers. When cre
 
 ### Keyboard Shortcuts
 
-⌘ ⇧ P/  ⌃ ⇧ PToggle Search Box
-⌘ ⇧ J/  ⌃ ⇧ JToggle Action Logger position
-⌘ ⇧ F/  ⌃ ⇧ FToggle Fullscreen Mode
-⌘ ⇧ L/  ⌃ ⇧ LToggle Left Panel
-⌘ ⇧ D/  ⌃ ⇧ DToggle Down Panel
-⌘ ⇧ →/  ⌃ ⇧ →Next Story
-⌘ ⇧ ←/  ⌃ ⇧ ←Previous Story
-
-
+⌘ ⇧ P/  ⌃ ⇧ PToggle Search Box  
+⌘ ⇧ J/  ⌃ ⇧ JToggle Action Logger position  
+⌘ ⇧ F/  ⌃ ⇧ FToggle Fullscreen Mode  
+⌘ ⇧ L/  ⌃ ⇧ LToggle Left Panel  
+⌘ ⇧ D/  ⌃ ⇧ DToggle Down Panel  
+⌘ ⇧ →/  ⌃ ⇧ →Next Story  
+⌘ ⇧ ←/  ⌃ ⇧ ←Previous Story  
