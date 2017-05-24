@@ -1,0 +1,22 @@
+.rscroll-wrapper .wrapper {
+    display: inline-block;
+}
+
+.rscroll-wrapper .wrapper .inner {
+    display: flex;
+}
+
+.rscroll-wrapper .after {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+}
+
+.rscroll-wrapper .after span {
+    transform: rotate(90deg);
+    transform-origin: center;
+}

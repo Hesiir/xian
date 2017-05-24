@@ -1,0 +1,22 @@
+{
+    "name": "@hoc/rscroll",
+    "version": "0.1.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Hesiir/xian.git"
+    },
+    "author": "Orlo Wang",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Hesiir/xian/issues"
+    },
+    "homepage": "https://github.com/Hesiir/xian#readme",
+    "devDependencies": {
+        "iscroll": "^5.2.0"
+    }
+}
