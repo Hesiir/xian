@@ -4,9 +4,11 @@
     "description": "react web components",
     "main": "index.js",
     "scripts": {
+        "bootstrap": "lerna bootstrap",
         "start": "start-storybook -p 6006",
         "create": "node scripts/create_component.js",
         "delete": "node scripts/delete_component.js",
+        "update": "node scripts/update_component.js",
         "build:lib": "NODE_ENV=production node ../helper/build_lib.js",
         "build-storybook": "build-storybook"
     },
@@ -32,6 +34,7 @@
         "@kadira/storybook-addon-notes": "^1.0.1",
         "@kadira/storybook-addon-options": "^1.0.2",
         "chalk": "^1.1.3",
+        "lerna": "^2.0.0-rc.4",
         "lodash": "^4.17.4",
         "mkdirp": "^0.5.1",
         "raw-loader": "^0.5.1",
