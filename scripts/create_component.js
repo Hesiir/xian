@@ -84,11 +84,7 @@ const package_file = `{
   "bugs": {
     "url": "https://github.com/Hesiir/xian/issues"
   },
-  "homepage": "https://github.com/Hesiir/xian#readme",
-  "devDependencies": {
-    "react": "^15.5.4",
-    "classnames": "^2.2.5"
-  }
+  "homepage": "https://github.com/Hesiir/xian#readme"
 }`
 
 if (fs.existsSync(packages_path)) {
