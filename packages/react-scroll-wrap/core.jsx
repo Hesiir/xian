@@ -6,7 +6,7 @@ import style from './style.css'
 
 const S = classNames.bind(style)
 const U = new Utils()
-class Scroller extends Component {
+export default class ScrollWrap extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -825,6 +825,4 @@ class Scroller extends Component {
     </div>)
   }
 }
-
-export default Scroller
 

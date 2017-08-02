@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { string, func, bool, number, object } from 'prop-types'
 import classNames from 'classnames/bind'
-import Scroller from './core'
+import ScrollWrap from './core'
 import style from './style.css'
 
 const S = classNames.bind(style)
@@ -116,11 +116,11 @@ class TouchList extends Component {
 
   render() {
     const { classname, children } = this.props
-    return (<Scroller ref='scroller' className={S(classname)}
+    return (<ScrollWrap ref='scroller' className={S(classname)}
       onScroll={this.onScrollHandlder}
       probeType={3}
       useTransition={false}
-    >{children}</Scroller>)
+    >{children}</ScrollWrap>)
   }
 }
 
