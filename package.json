@@ -8,8 +8,8 @@
         "lerna": "lerna init",
         "bootstrap": "lerna bootstrap",
         "release": "lerna publish",
-        "create": "node scripts/create_component.js",
-        "delete": "node scripts/delete_component.js",
+        "new": "node scripts/create_component.js",
+        "drop": "node scripts/delete_component.js",
         "update": "node scripts/update_component.js",
         "build:lib": "NODE_ENV=production node ../helper/build_lib.js",
         "build-storybook": "build-storybook"
