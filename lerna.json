@@ -8,7 +8,7 @@
       "ignore": []
     }
   },
-  "npmClient": "npm",
+  "npmClient": "yarn",
   "packages": [
     "packages/*",
     "packages/**/*"
