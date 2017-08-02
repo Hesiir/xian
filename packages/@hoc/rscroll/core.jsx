@@ -117,6 +117,7 @@ class Scroller extends Component {
     onScrollEnd: func,
     onScrollStop: func,
     beforeScrollStart: func,
+    scrollStart: func,
 
     needBefore: bool,
     needAfter: bool,
@@ -534,7 +535,7 @@ class Scroller extends Component {
     this.directionY = deltaY > 0 ? -1 : deltaY < 0 ? 1 : 0
 
     if (!this.moved) {
-      this._execEvent('scrollStart')
+      if (this.props.scrollStart) this.props.scrollStart(this.setCallback(this))
     }
 
     this.moved = true
