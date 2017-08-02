@@ -1,6 +1,6 @@
 {
-    "name": "#hoc/rscroll",
-    "version": "0.0.6",
+    "name": "scroll-wrap",
+    "version": "0.0.7",
     "description": "",
     "main": "index.js",
     "scripts": {
