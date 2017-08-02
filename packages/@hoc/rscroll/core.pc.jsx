@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { string, func, bool, number, object } from 'prop-types'
 import classNames from 'classnames/bind'
-import Utils, { rAF } from './utils'
+import utils, { rAF } from './utils'
 import style from './style.css'
 
 const S = classNames.bind(style)
-const U = new Utils()
 class Scroller extends Component {
   constructor(props) {
     super(props)
@@ -17,31 +16,31 @@ class Scroller extends Component {
         position: 'relative'
       }
     }
-
     this.x = 0
     this.y = 0
     this.directionX = 0
     this.directionY = 0
-    this.isAnimating = false
     this._events = {}
-
+    this.isAnimating = false
     this.HWCompositing = this.props.HWCompositing
-    this.translateZ = U.hasPerspective && this.HWCompositing ? ' translateZ(0)' : ''
-    // android >= 4.4 IE >= 10, commond to us transition, better effect, when onScroll is in use, switch to 'requestAnimationFrame'
-    this.useTransition = U.hasTransition && !this.props.onScroll
+    this.useTransition = utils.hasTransition && this.props.useTransition
     this.eventPassthrough = this.props.eventPassthrough === true ? 'vertical' : this.props.eventPassthrough
-    this.preventDefault = !this.eventPassthrough && this.props.preventDefault
+    this.preventDefault = !this.props.eventPassthrough && this.props.preventDefault
+    this.translateZ = this.HWCompositing && utils.hasPerspective ? ' translateZ(0)' : ''
+    this.probeType = this.props.probeType
 
     // If you want eventPassthrough I have to lock one of the axes
-    this.scrollY = this.eventPassthrough == 'vertical' ? false : this.props.scrollY
-    this.scrollX = this.eventPassthrough == 'horizontal' ? false : this.props.scrollX
+    this.scrollY = this.props.eventPassthrough == 'vertical' ? false : this.props.scrollY
+    this.scrollX = this.props.eventPassthrough == 'horizontal' ? false : this.props.scrollX
 
     // With eventPassthrough we also need lockDirection mechanism
-    this.freeScroll = this.props.freeScroll && !this.eventPassthrough
-    this.directionLockThreshold = this.eventPassthrough ? 0 : this.props.directionLockThreshold
-    this.bounceEasing = typeof this.props.bounceEasing == 'string' ? U.ease[this.props.bounceEasing] || U.ease.circular : this.props.bounceEasing
+    this.freeScroll = this.props.freeScroll && !this.props.eventPassthrough
+    this.directionLockThreshold = this.props.eventPassthrough ? 0 : this.props.directionLockThreshold
+    this.bounceEasing = typeof this.props.bounceEasing == 'string' ? utils.ease[this.props.bounceEasing] || utils.ease.circular : this.props.bounceEasing
     this.resizePolling = this.props.resizePolling === undefined ? 60 : this.props.resizePolling
     this.tap = this.props.tap ? 'tap' : null
+    this.disablePointer = this.props.disablePointer
+
     this.startX = this.props.startX
     this.startY = this.props.startY
     this.momentum = this.props.momentum
@@ -49,35 +48,14 @@ class Scroller extends Component {
     this.bounce = this.props.bounce
     this.bounceTime = this.props.bounceTime
     this.preventDefaultException = this.props.preventDefaultException
+
     this.bindToWrapper = this.props.bindToWrapper
     this.handleEvent = this.handleEvent
-
-    this.callback = {
-      x: this.x,
-      y: this.y,
-      distX: this.distX,
-      distY: this.distY,
-      startTime: this.startTime,
-      endTime: this.endTime,
-      pointX: this.pointX,
-      pointY: this.pointY,
-      startX: this.startX,
-      startY: this.startY,
-      scrollerWidth: this.scrollerWidth,
-      scrollerHeight: this.scrollerHeight,
-      wrapperWidth: this.wrapperWidth,
-      wrapperHeight: this.wrapperHeight,
-      resizePolling: this.resizePolling,
-      maxScrollX: this.maxScrollX,
-      maxScrollY: this.maxScrollY,
-      isMoving: this.moved
-    }
   }
 
   static propTypes = {
     classname: string,
-    disableTouch: bool,
-    disableMouse: bool,
+    disablePointer: bool,
     startX: number,
     startY: number,
     // Note that scrollX/Y: true has the same effect as overflow: auto. Setting one direction to false helps to spare some checks and thus CPU cycles
@@ -88,6 +66,7 @@ class Scroller extends Component {
     momentum: bool,
     freeScroll: bool,
     scrollbars: bool,
+    probeType: number,
     // When not in use the scrollbar fades away. Leave this to false to spare resources
     fadeScrollbars: bool,
     // The scrollbar becomes draggable and user can interact with it.
@@ -95,7 +74,6 @@ class Scroller extends Component {
     resizeScrollbars: bool,
     // 
     shrinkScrollbars: bool,
-    strictEvent: bool,
 
     bounce: bool,
     bounceTime: number,
@@ -111,12 +89,12 @@ class Scroller extends Component {
     tap: bool,
 
     HWCompositing: bool,
+    useTransition: bool,
     bindToWrapper: bool,
 
     onScroll: func,
     onScrollEnd: func,
     onScrollStop: func,
-    beforeScrollStart: func,
 
     needBefore: bool,
     needAfter: bool,
@@ -129,7 +107,7 @@ class Scroller extends Component {
     directionLockThreshold: 5,
     momentum: true,
 
-    bounce: false,
+    bounce: true,
     bounceTime: 600,
     bounceEasing: '',
     // Normally when you start scrolling in one direction the other is locked
@@ -139,19 +117,19 @@ class Scroller extends Component {
     preventDefault: true,
     // increaes performance by add translateZ(0)
     HWCompositing: true,
+    // android >= 4.4 IE >= 10, commond to us transition, better effect
+    useTransition: true,
 
-    disableTouch: U.hasPointer || !U.hasTouch,
-    disableMouse: U.hasPointer || U.hasTouch,
+    disablePointer: !utils.hasPointer,
+    disableTouch: utils.hasPointer || !utils.hasTouch,
+    disableMouse: utils.hasPointer || utils.hasTouch,
     preventDefaultException: { tagName: /^(INPUT|TEXTAREA|BUTTON|SELECT)$/ },
     bindToWrapper: typeof window.onmousedown === "undefined",
-    tap: false,
-
-    onScroll: (pos) => { console.log('is moving ->', pos.isMoving) }
+    tap: false
   }
 
   componentDidMount() {
     this._initScroll()
-    console.log(this.props.onScroll)
   }
 
   componentWillReciveProps(nextProps) { }
@@ -163,96 +141,90 @@ class Scroller extends Component {
     this.enabled = true
   }
 
-  initEvents = (remove) => {
-    let eventType = remove ? U.removeEvent : U.addEvent,
-      target = this.bindToWrapper ? this.wrapper : window
+  initEvents(remove) {
+    let eventType = remove ? utils.removeEvent : utils.addEvent,
+      target = this.bindToWrapper ? this.refs.wrapper : window
 
     eventType(window, 'orientationchange', this)
     eventType(window, 'resize', this)
 
-    if (this.click) eventType(this.wrapper, 'click', this, true)
+    if (this.click) {
+      eventType(this.refs.wrapper, 'click', this, true)
+    }
 
-    // register pointer event when it's useable
-    if (U.hasPointer) {
-      eventType(this.wrapper, U.__prefixPointerEvent('pointerdown'), this)
-      eventType(target, U.__prefixPointerEvent('pointermove'), this)
-      eventType(target, U.__prefixPointerEvent('pointercancel'), this)
-      eventType(target, U.__prefixPointerEvent('pointerup'), this)
-    } else if (U.hasTouch) {
-      eventType(this.wrapper, 'touchstart', this)
-      eventType(target, 'touchmove', this)
-      eventType(target, 'touchcancel', this)
-      eventType(target, 'touchend', this)
-    } else {
-      eventType(this.wrapper, 'mousedown', this)
+    if (!this.disableMouse) {
+      eventType(this.refs.wrapper, 'mousedown', this)
       eventType(target, 'mousemove', this)
       eventType(target, 'mousecancel', this)
       eventType(target, 'mouseup', this)
     }
 
-    eventType(this.scroller, 'transitionend', this)
-    eventType(this.scroller, 'webkitTransitionEnd', this)
-    eventType(this.scroller, 'oTransitionEnd', this)
-    eventType(this.scroller, 'MSTransitionEnd', this)
+    if (utils.hasPointer && !this.disablePointer) {
+      eventType(this.refs.wrapper, utils.prefixPointerEvent('pointerdown'), this)
+      eventType(target, utils.prefixPointerEvent('pointermove'), this)
+      eventType(target, utils.prefixPointerEvent('pointercancel'), this)
+      eventType(target, utils.prefixPointerEvent('pointerup'), this)
+    }
 
+    if (utils.hasTouch && !this.disableTouch) {
+      eventType(this.refs.wrapper, 'touchstart', this)
+      eventType(target, 'touchmove', this)
+      eventType(target, 'touchcancel', this)
+      eventType(target, 'touchend', this)
+    }
+
+    eventType(this.refs.scroller, 'transitionend', this)
+    eventType(this.refs.scroller, 'webkitTransitionEnd', this)
+    eventType(this.refs.scroller, 'oTransitionEnd', this)
+    eventType(this.refs.scroller, 'MSTransitionEnd', this)
+
+    if (this.props.onScroll) this.on('scroll', () => {
+      this.props.onScroll(this)
+    })
+    if (this.props.onScrollEnd) this.on('scrollEnd', () => {
+      this.props.onScrollEnd(this)
+    })
     if (this.props.onScrollStop) this.on('scrollStop', () => {
       this.props.onScrollStop(this)
     })
   }
 
-  setCallback = (content) => ({
-    x: content.x,
-    y: content.y,
-    distX: content.distX,
-    distY: content.distY,
-    startTime: content.startTime,
-    endTime: content.endTime,
-    pointX: content.pointX,
-    pointY: content.pointY,
-    startX: content.startX,
-    startY: content.startY,
-    scrollerWidth: content.scrollerWidth,
-    scrollerHeight: content.scrollerHeight,
-    wrapperWidth: content.wrapperWidth,
-    wrapperHeight: content.wrapperHeight,
-    resizePolling: content.resizePolling,
-    maxScrollX: content.maxScrollX,
-    maxScrollY: content.maxScrollY,
-    isMoving: content.moved
-  })
-
-  on = (type, fn) => {
+  on(type, fn) {
     if (!this._events[type]) {
-      this._events[type] = []
+      this._events[type] = [];
     }
 
-    this._events[type].push(fn)
+    this._events[type].push(fn);
   }
 
-  off = (type, fn) => {
+  off(type, fn) {
     if (!this._events[type]) {
-      return
+      return;
     }
 
-    let index = this._events[type].indexOf(fn)
+    var index = this._events[type].indexOf(fn);
 
     if (index > -1) {
-      this._events[type].splice(index, 1)
+      this._events[type].splice(index, 1);
     }
   }
 
-  refresh = () => {
-    U.getRect(this.state.scroller)		// Force reflow
+  refresh() {
+    utils.getRect(this.state.scroller)		// Force reflow
 
-    let rect = U.getRect(this.scroller)
+    this.wrapperWidth = this.refs.wrapper.clientWidth
+    this.wrapperHeight = this.refs.wrapper.clientHeight
 
-    this.wrapperWidth = this.wrapper.clientWidth
-    this.wrapperHeight = this.wrapper.clientHeight
+    var rect = utils.getRect(this.refs.scroller)
+    /* REPLACE START: refresh */
+
     this.scrollerWidth = rect.width
     this.scrollerHeight = rect.height
+
     this.maxScrollX = this.wrapperWidth - this.scrollerWidth
     this.maxScrollY = this.wrapperHeight - this.scrollerHeight
 
+    /* REPLACE END: refresh */
     this.hasHorizontalScroll = this.scrollX && this.maxScrollX < 0
     this.hasVerticalScroll = this.scrollY && this.maxScrollY < 0
 
@@ -270,28 +242,31 @@ class Scroller extends Component {
     this.directionX = 0
     this.directionY = 0
 
-    if (U.hasPointer) {
+    if (utils.hasPointer && !this.disablePointer) {
       // The wrapper should have `touchAction` property for using pointerEvent.
-      this.wrapper.style[U.style.touchAction] = U.getTouchAction(this.eventPassthrough, true)
+      this.refs.wrapper.style[utils.style.touchAction] = utils.getTouchAction(this.eventPassthrough, true)
 
       // case. not support 'pinch-zoom'
       // https://github.com/cubiq/iscroll/issues/1118#issuecomment-270057583
-      if (!this.wrapper.style[U.style.touchAction]) {
-        this.wrapper.style[U.style.touchAction] = U.getTouchAction(this.eventPassthrough, false)
+      if (!this.refs.wrapper.style[utils.style.touchAction]) {
+        this.refs.wrapper.style[utils.style.touchAction] = utils.getTouchAction(this.eventPassthrough, false)
       }
     }
-    this.wrapperOffset = U.offset(this.state.scroller)
+    this.refs.wrapperOffset = utils.offset(this.state.scroller)
+
+    this._execEvent('refresh')
+
     this.resetPosition()
   }
 
-  destroy = () => {
+  destroy() {
     this._initEvents(true)
     clearTimeout(this.resizeTimeout)
     this.resizeTimeout = null
     this._execEvent('destroy')
   }
 
-  scrollBy = (x, y, time, easing) => {
+  scrollBy(x, y, time, easing) {
     x = this.x + x
     y = this.y + y
     time = time || 0
@@ -299,8 +274,8 @@ class Scroller extends Component {
     this.scrollTo(x, y, time, easing)
   }
 
-  scrollTo = (x, y, time, easing) => {
-    easing = easing || U.ease.circular
+  scrollTo(x, y, time, easing) {
+    easing = easing || utils.ease.circular
 
     this.isInTransition = this.useTransition && time > 0
     let transitionType = this.useTransition && easing.style
@@ -315,19 +290,21 @@ class Scroller extends Component {
     }
   }
 
-  scrollToElement = (el, time, offsetX, offsetY, easing) => {
-    el = el.nodeType ? el : this.scroller.querySelector(el)
+  scrollToElement(el, time, offsetX, offsetY, easing) {
+    el = el.nodeType ? el : this.refs.scroller.querySelector(el)
 
-    if (!el) return
+    if (!el) {
+      return
+    }
 
-    let pos = U.offset(el)
+    var pos = utils.offset(el)
 
     pos.left -= this.wrapperOffset.left
     pos.top -= this.wrapperOffset.top
 
     // if offsetX/Y are true we center the element to the screen
-    let elRect = U.getRect(el)
-    let wrapperRect = U.getRect(this.wrapper)
+    var elRect = utils.getRect(el)
+    var wrapperRect = utils.getRect(this.wrapper)
     if (offsetX === true) {
       offsetX = Math.round(elRect.width / 2 - wrapperRect.width / 2)
     }
@@ -346,7 +323,7 @@ class Scroller extends Component {
     this.scrollTo(pos.left, pos.top, time, easing)
   }
 
-  resetPosition = (time) => {
+  resetPosition(time) {
     let x = this.x,
       y = this.y;
 
@@ -373,32 +350,32 @@ class Scroller extends Component {
     return true
   }
 
-  getComputedPosition = () => {
-    let matrix = window.getComputedStyle(this.scroller, null),
+  getComputedPosition() {
+    let matrix = window.getComputedStyle(this.refs.scroller, null),
       x, y;
 
-    matrix = matrix[U.style.transform].split(')')[0].split(', ')
+    matrix = matrix[utils.style.transform].split(')')[0].split(', ')
     x = +(matrix[12] || matrix[4])
     y = +(matrix[13] || matrix[5])
 
     return { x: x, y: y }
   }
 
-  _transitionEnd = (e) => {
-    if (e.target != this.scroller || !this.isInTransition) {
+  _transitionEnd(e) {
+    if (e.target != this.refs.scroller || !this.isInTransition) {
       return
     }
 
     this._transitionTime()
     if (!this.resetPosition(this.bounceTime)) {
       this.isInTransition = false
-      if (this.props.onScrollEnd) this.props.onScrollEnd(this.setCallback(this))
+      this._execEvent('scrollEnd')
     }
   }
 
-  _start = (e) => {
+  _start(e) {
     // React to left mouse button only
-    if (U.eventType[e.type] != 1) {
+    if (utils.eventType[e.type] != 1) {
       // for button property
       // http://unixpapa.com/js/mouse.html
       let button;
@@ -414,18 +391,18 @@ class Scroller extends Component {
       }
     }
 
-    if (!this.enabled || (this.initiated && U.eventType[e.type] !== this.initiated)) {
+    if (!this.enabled || (this.initiated && utils.eventType[e.type] !== this.initiated)) {
       return
     }
 
-    if (this.preventDefault && !U.isBadAndroid && !U.preventDefaultException(e.target, this.preventDefaultException)) {
+    if (this.preventDefault && !utils.isBadAndroid && !utils.preventDefaultException(e.target, this.preventDefaultException)) {
       e.preventDefault()
     }
 
     let point = e.touches ? e.touches[0] : e,
       pos
 
-    this.initiated = U.eventType[e.type]
+    this.initiated = utils.eventType[e.type]
     this.moved = false
     this.distX = 0
     this.distY = 0
@@ -433,17 +410,17 @@ class Scroller extends Component {
     this.directionY = 0
     this.directionLocked = 0
 
-    this.startTime = U.nowTime()
+    this.startTime = utils.getTime()
 
     if (this.useTransition && this.isInTransition) {
       this._transitionTime()
       this.isInTransition = false
       pos = this.getComputedPosition()
       this._translate(Math.round(pos.x), Math.round(pos.y))
-      if (this.props.onScrollEnd) this.props.onScrollEnd(this.setCallback(this))
+      this._execEvent('scrollEnd')
     } else if (!this.useTransition && this.isAnimating) {
       this.isAnimating = false
-      if (this.props.onScrollEnd) this.props.onScrollEnd(this.setCallback(this))
+      this._execEvent('scrollEnd')
     }
 
     this.startX = this.x
@@ -453,11 +430,11 @@ class Scroller extends Component {
     this.pointX = point.pageX
     this.pointY = point.pageY
 
-    if (this.props.beforeScrollStart) this.props.beforeScrollStart(this.setCallback(this))
+    this._execEvent('beforeScrollStart')
   }
 
-  _move = (e) => {
-    if (!this.enabled || U.eventType[e.type] !== this.initiated) {
+  _move(e) {
+    if (!this.enabled || utils.eventType[e.type] !== this.initiated) {
       return
     }
 
@@ -468,7 +445,7 @@ class Scroller extends Component {
     let point = e.touches ? e.touches[0] : e,
       deltaX = point.pageX - this.pointX,
       deltaY = point.pageY - this.pointY,
-      timestamp = U.nowTime(),
+      timestamp = utils.getTime(),
       newX, newY,
       absDistX, absDistY
 
@@ -540,35 +517,39 @@ class Scroller extends Component {
     this.moved = true
     this._translate(newX, newY)
 
+    /* REPLACE START: _move */
     if (timestamp - this.startTime > 300) {
       this.startTime = timestamp;
       this.startX = this.x;
       this.startY = this.y;
 
-      if (!this.useTransition) {
-        if (this.props.onScroll) this.props.onScroll(this.setCallback(this))
+      if (this.probeType == 1) {
+        this._execEvent('scroll')
       }
     }
 
-    if (!this.useTransition) {
-      if (this.props.onScroll) this.props.onScroll(this.setCallback(this))
+    if (this.probeType > 1) {
+      this._execEvent('scroll')
     }
+
+    /* REPLACE END: _move */
+
   }
 
-  _end = (e) => {
+  _end(e) {
     this._execEvent('scrollStop')
-    if (!this.enabled || U.eventType[e.type] !== this.initiated) {
+    if (!this.enabled || utils.eventType[e.type] !== this.initiated) {
       return
     }
 
-    if (this.preventDefault && !U.preventDefaultException(e.target, this.preventDefaultException)) {
+    if (this.preventDefault && !utils.preventDefaultException(e.target, this.preventDefaultException)) {
       e.preventDefault()
     }
 
     let point = e.changedTouches ? e.changedTouches[0] : e,
       momentumX,
       momentumY,
-      duration = U.nowTime() - this.startTime,
+      duration = utils.getTime() - this.startTime,
       newX = Math.round(this.x),
       newY = Math.round(this.y),
       distanceX = Math.abs(newX - this.startX),
@@ -578,7 +559,7 @@ class Scroller extends Component {
 
     this.isInTransition = 0
     this.initiated = 0
-    this.endTime = U.nowTime()
+    this.endTime = utils.getTime()
 
     // reset if we are outside of the boundaries
     if (this.resetPosition(this.bounceTime)) {
@@ -590,11 +571,11 @@ class Scroller extends Component {
     // we scrolled less than 10 pixels
     if (!this.moved) {
       if (this.tap) {
-        U.tap(e, this.tap)
+        utils.tap(e, this.tap)
       }
 
       if (this.click) {
-        U.click(e)
+        utils.click(e)
       }
 
       this._execEvent('scrollCancel')
@@ -608,8 +589,8 @@ class Scroller extends Component {
 
     // start momentum animation if needed
     if (this.momentum && duration < 300) {
-      momentumX = this.hasHorizontalScroll ? U.momentum(this.x, this.startX, duration, this.maxScrollX, this.bounce ? this.wrapperWidth : 0, this.deceleration) : { destination: newX, duration: 0 }
-      momentumY = this.hasVerticalScroll ? U.momentum(this.y, this.startY, duration, this.maxScrollY, this.bounce ? this.wrapperHeight : 0, this.deceleration) : { destination: newY, duration: 0 }
+      momentumX = this.hasHorizontalScroll ? utils.momentum(this.x, this.startX, duration, this.maxScrollX, this.bounce ? this.wrapperWidth : 0, this.deceleration) : { destination: newX, duration: 0 }
+      momentumY = this.hasVerticalScroll ? utils.momentum(this.y, this.startY, duration, this.maxScrollY, this.bounce ? this.wrapperHeight : 0, this.deceleration) : { destination: newY, duration: 0 }
       newX = momentumX.destination
       newY = momentumY.destination
       time = Math.max(momentumX.duration, momentumY.duration)
@@ -621,17 +602,17 @@ class Scroller extends Component {
     if (newX != this.x || newY != this.y) {
       // change easing function when scroller goes out of the boundaries
       if (newX > 0 || newX < this.maxScrollX || newY > 0 || newY < this.maxScrollY) {
-        easing = U.ease.quadratic
+        easing = utils.ease.quadratic
       }
 
       this.scrollTo(newX, newY, time, easing)
       return
     }
 
-    if (this.props.onScrollEnd) this.props.onScrollEnd(this.setCallback(this))
+    this._execEvent('scrollEnd')
   }
 
-  _resize = () => {
+  _resize() {
     let that = this
 
     clearTimeout(this.resizeTimeout)
@@ -641,7 +622,15 @@ class Scroller extends Component {
     }, this.resizePolling)
   }
 
-  _execEvent = (type) => {
+  _wheel() {
+
+  }
+
+  _key() {
+
+  }
+
+  _execEvent(type) {
     if (!this._events[type]) {
       return
     }
@@ -658,21 +647,21 @@ class Scroller extends Component {
     }
   }
 
-  _transitionTimingFunction = (easing) => {
+  _transitionTimingFunction(easing) {
     this.setState({
       scroller: Object.assign(this.state.scroller, {
-        [U.style.transitionTimingFunction]: easing
+        [utils.style.transitionTimingFunction]: easing
       })
     })
-    // this.style.scroller[U.style.transitionTimingFunction] = easing
+    // this.style.scroller[utils.style.transitionTimingFunction] = easing
   }
 
-  _transitionTime = (time) => {
+  _transitionTime(time) {
     if (!this.useTransition) {
       return
     }
     time = time || 0
-    let durationProp = U.style.transitionDuration
+    let durationProp = utils.style.transitionDuration
     if (!durationProp) {
       return
     }
@@ -684,7 +673,7 @@ class Scroller extends Component {
     })
     // this.style.scroller[durationProp] = time + 'ms'
 
-    if (!time && U.isBadAndroid) {
+    if (!time && utils.isBadAndroid) {
       this.setState({
         scroller: Object.assign(this.state.scroller, {
           [durationProp]: '0.0001ms'
@@ -706,30 +695,29 @@ class Scroller extends Component {
     }
   }
 
-  _translate = (x, y) => {
-    console.log('it translate, check is animating', this.isAnimating)
+  _translate(x, y) {
     /* REPLACE START: _translate */
     this.setState({
       scroller: Object.assign(this.state.scroller, {
-        [U.style.transform]: 'translate(' + x + 'px,' + y + 'px)' + this.translateZ
+        [utils.style.transform]: 'translate(' + x + 'px,' + y + 'px)' + this.translateZ
       })
     })
-    // this.style.scroller[U.style.transform] = 'translate(' + x + 'px,' + y + 'px)' + this.translateZ
+    // this.style.scroller[utils.style.transform] = 'translate(' + x + 'px,' + y + 'px)' + this.translateZ
     /* REPLACE END: _translate */
 
     this.x = x
     this.y = y
   }
 
-  _animate = (destX, destY, duration, easingFn) => {
+  _animate(destX, destY, duration, easingFn) {
     let that = this,
       startX = this.x,
       startY = this.y,
-      startTime = U.nowTime(),
+      startTime = utils.getTime(),
       destTime = startTime + duration;
 
     function step() {
-      let now = U.nowTime(),
+      let now = utils.getTime(),
         newX, newY,
         easing;
 
@@ -738,7 +726,7 @@ class Scroller extends Component {
         that._translate(destX, destY);
 
         if (!that.resetPosition(that.bounceTime)) {
-          if (that.props.onScrollEnd) that.props.onScrollEnd(that.setCallback(that))
+          that._execEvent('scrollEnd');
         }
 
         return;
@@ -753,8 +741,8 @@ class Scroller extends Component {
         rAF(step);
       }
 
-      if (!that.useTransition) {
-        if (that.props.onScroll) that.props.onScroll(that.setCallback(that))
+      if (that.probeType == 3) {
+        that._execEvent('scroll')
       }
     }
 
@@ -762,14 +750,13 @@ class Scroller extends Component {
     step()
   }
 
-  handleEvent = (e) => {
+  handleEvent(e) {
     switch (e.type) {
       case 'touchstart':
       case 'pointerdown':
       case 'MSPointerDown':
       case 'mousedown':
         this._start(e);
-        // e.stopImmediatePropagation()
         break;
       case 'touchmove':
       case 'pointermove':
@@ -816,9 +803,9 @@ class Scroller extends Component {
 
   render() {
     const { classname, children, needBefore, needAfter } = this.props
-    return (<div ref={(wrapper) => this.wrapper = wrapper} className={S('rscroll-wrapper')} style={this.state.wrapper}>
+    return (<div ref="wrapper" className={S('rscroll-wrapper')} style={this.state.wrapper}>
       {needBefore && <div ref="before" className={S('before')}></div>}
-      <div ref={(scroller) => this.scroller = scroller} className={S('wrapper', classname)} style={this.state.scroller}>{children}</div>
+      <div ref="scroller" className={S('wrapper', classname)} style={this.state.scroller}>{children}</div>
       {needAfter && <div ref="after" className={S('after')}></div>}
     </div>)
   }
