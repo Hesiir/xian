@@ -820,7 +820,7 @@ export default class ScrollWrap extends Component {
     return (<div ref={(wrapper) => this.wrapper = wrapper} className={S('rscroll-wrapper')} style={this.state.wrapper}>
       {needBefore && <div ref="before" className={S('before')}></div>}
       <div ref={(scroller) => this.scroller = scroller} className={S('wrapper', classname)} style={this.state.scroller}>{children}</div>
-      {'test publish'}
+      {'test publish .'}
       {needAfter && <div ref="after" className={S('after')}></div>}
     </div>)
   }
