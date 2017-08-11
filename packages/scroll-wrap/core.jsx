@@ -147,7 +147,7 @@ export default class ScrollWrap extends Component {
     bindToWrapper: typeof window.onmousedown === "undefined",
     tap: false,
 
-    onScroll: (pos) => { console.log('is moving ->', pos.isMoving) }
+    onScroll: (pos) => { console.log('is moving ->', pos.y) }
   }
 
   componentDidMount() {

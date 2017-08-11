@@ -1,16 +1,17 @@
 {
-  "lerna": "2.0.0",
-  "commands": {
-    "bootstrap": {
-      "ignore": []
+    "lerna": "2.0.0",
+    "commands": {
+        "bootstrap": {
+            "ignore": []
+        },
+        "publish": {
+            "ignore": []
+        }
     },
-    "publish": {
-      "ignore": []
-    }
-  },
-  "npmClient": "yarn",
-  "packages": [
-    "packages/*",
-    "packages/**/*"
-  ]
+    "npmClient": "yarn",
+    "packages": [
+        "packages/*",
+        "packages/**/*"
+    ],
+    "version": "0.0.12"
 }
