@@ -1,8 +1,8 @@
 {
     "name": "scroll-wrap",
-    "version": "0.0.10",
+    "version": "0.0.13",
     "description": "",
-    "main": "index.js",
+    "main": "dist/core.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
@@ -15,5 +15,11 @@
     "bugs": {
         "url": "https://github.com/Hesiir/xian/issues"
     },
-    "homepage": "https://github.com/Hesiir/xian#readme"
+    "homepage": "https://github.com/Hesiir/xian#readme",
+    "files": [
+        "dist",
+        "package.json",
+        "README.md",
+        "LICENSE"
+    ]
 }

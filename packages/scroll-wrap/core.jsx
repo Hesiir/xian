@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { string, func, bool, number, object } from 'prop-types'
 import classNames from 'classnames/bind'
-import Utils, { rAF } from './utils'
+import Utils, { rAF } from './fn/utils'
 import style from './style.css'
 
 const S = classNames.bind(style)

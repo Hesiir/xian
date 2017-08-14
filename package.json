@@ -11,7 +11,7 @@
         "new": "node scripts/create_component.js",
         "drop": "node scripts/delete_component.js",
         "update": "node scripts/update_component.js",
-        "build:lib": "NODE_ENV=production node ../helper/build_lib.js",
+        "build": "node scripts/build_packages.js",
         "build-storybook": "build-storybook"
     },
     "repository": {
@@ -35,6 +35,7 @@
         "@storybook/addon-notes": "3.1.6",
         "@storybook/addon-options": "3.1.6",
         "@storybook/react": "3.1.9",
+        "babel-core": "^6.25.0",
         "chalk": "^1.1.3",
         "lerna": "^2.0.0",
         "lodash": "^4.17.4",
@@ -43,6 +44,7 @@
         "react": "^15.5.4",
         "react-dom": "^15.5.4",
         "rimraf": "^2.6.1",
+        "shelljs": "^0.7.8",
         "storybook-readme": "^3.0.5"
     }
 }
